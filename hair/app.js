@@ -7,6 +7,9 @@
   var SHIP_COST = 6;
   var CART_KEY = 'fofo-hair-cart';
   var THEME_KEY = 'fofo-theme';
+  var LANG_KEY = 'fofo-lang';
+  var I18N = window.FOFO_I18N || { page: { ar: {} }, ui: { en: {}, ar: {} }, products: {}, bundles: {} };
+  var lang = document.documentElement.lang === 'ar' ? 'ar' : 'en';
 
   var byId = {};
   PRODUCTS.forEach(function (p) { byId[p.id] = p; });
@@ -16,6 +19,54 @@
   var money = function (n) { return '$' + (Math.round(n * 100) / 100).toFixed(n % 1 ? 2 : 0); };
   var esc = function (s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ============================================================
+     Language
+     ============================================================ */
+  function t(key, vars) {
+    var s = I18N.ui[lang][key];
+    if (s === undefined) s = I18N.ui.en[key];
+    if (typeof s === 'function') return s(vars);
+    return String(s).replace(/\{(\w+)\}/g, function (_, k) { return vars && vars[k] !== undefined ? vars[k] : ''; });
+  }
+  function tr(group, key) { var g = I18N.ui[lang][group] || {}; return g[key] !== undefined ? g[key] : key; }
+  // Localized product / bundle fields fall back to the English catalog.
+  function P(p, field) { var ar = lang === 'ar' && I18N.products[p.id]; return ar && ar[field] !== undefined ? ar[field] : p[field]; }
+  function B(b, field) { var ar = lang === 'ar' && I18N.bundles[b.id]; return ar && ar[field] !== undefined ? ar[field] : b[field]; }
+  function sizeLabel(s) { return lang === 'ar' ? s.replace(/(\d+)ml/, '$1 مل').replace('Set of 3', 'طقم من 3') : s; }
+  function num(s) { return '<span class="num">' + s + '</span>'; }
+
+  function applyStatic() {
+    var dict = I18N.page.ar || {};
+    $$('[data-i18n]').forEach(function (el) {
+      if (el.dataset.en === undefined) el.dataset.en = el.innerHTML;
+      var ar = dict[el.dataset.i18n];
+      el.innerHTML = lang === 'ar' && ar !== undefined ? ar : el.dataset.en;
+    });
+    $$('[data-i18n-attr]').forEach(function (el) {
+      el.dataset.i18nAttr.split(';').forEach(function (pair) {
+        var bits = pair.split(':'), attr = bits[0], key = bits[1];
+        var store = 'en' + attr.replace(/(^|-)(\w)/g, function (_, __, c) { return c.toUpperCase(); });
+        if (el.dataset[store] === undefined) el.dataset[store] = el.getAttribute(attr) || '';
+        var ar = dict[key];
+        el.setAttribute(attr, lang === 'ar' && ar !== undefined ? ar : el.dataset[store]);
+      });
+    });
+    var btn = $('#langToggle');
+    if (btn) { $('#langCode').textContent = t('langLabel'); btn.setAttribute('aria-label', t('langAria')); btn.setAttribute('lang', lang === 'ar' ? 'en' : 'ar'); }
+  }
+  var onLangChange = [];
+  function setLang(next) {
+    lang = next;
+    var root = document.documentElement;
+    root.lang = lang;
+    root.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
+    applyStatic();
+    onLangChange.forEach(function (fn) { fn(); });
+  }
+  try { if (localStorage.getItem(LANG_KEY) === 'ar') { lang = 'ar'; document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl'; } } catch (e) {}
+  applyStatic();
 
   /* ============================================================
      Packaging illustrations
@@ -60,11 +111,11 @@
 
   function vessel(p) {
     var id = 'v' + (++uid);
-    var t = p.tint;
-    var dark = shade(t, -38);
+    var tint = p.tint;
+    var dark = shade(tint, -38);
     var size = p.sizes[0].label;
     var defs = '<defs>' +
-      '<linearGradient id="' + id + 'b" x1="0" x2="1"><stop offset="0" stop-color="' + shade(t, -22) + '"/><stop offset=".45" stop-color="' + t + '"/><stop offset="1" stop-color="' + shade(t, -30) + '"/></linearGradient>' +
+      '<linearGradient id="' + id + 'b" x1="0" x2="1"><stop offset="0" stop-color="' + shade(tint, -22) + '"/><stop offset=".45" stop-color="' + tint + '"/><stop offset="1" stop-color="' + shade(tint, -30) + '"/></linearGradient>' +
       '<linearGradient id="' + id + 'g" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>' +
       '<linearGradient id="' + id + 'c" x1="0" x2="1"><stop offset="0" stop-color="#1A110D"/><stop offset=".5" stop-color="#4A362B"/><stop offset="1" stop-color="#1A110D"/></linearGradient>' +
       '</defs>';
@@ -115,7 +166,7 @@
         break;
       case 'scrunchie':
         body =
-          '<path d="' + ringPath(60, 206, 42, 14, 4, 0.32) + '" fill="' + shade(t, -30) + '"/>' +
+          '<path d="' + ringPath(60, 206, 42, 14, 4, 0.32) + '" fill="' + shade(tint, -30) + '"/>' +
           '<path d="' + ringPath(60, 204, 24, 12, 2, 0.28) + '" fill="#000" fill-opacity=".25"/>' +
           '<path d="' + ringPath(60, 176, 38, 13, 4, 0.34) + '" fill="#E3B27F"/>' +
           '<path d="' + ringPath(60, 174, 21, 11, 2, 0.3) + '" fill="#000" fill-opacity=".22"/>' +
@@ -124,7 +175,7 @@
           '<path d="M40 138c8-4 22-5 34-2" stroke="#fff" stroke-opacity=".5" stroke-width="3" fill="none" stroke-linecap="round"/>';
         break;
     }
-    return '<svg viewBox="0 0 120 240" role="img" aria-label="' + esc(p.name) + ' packaging">' + defs + body + '</svg>';
+    return '<svg viewBox="0 0 120 240" role="img" aria-label="' + esc(t('packaging', { n: P(p, 'name') })) + '">' + defs + body + '</svg>';
   }
 
   var STAR = '<svg viewBox="0 0 20 20" aria-hidden="true"><path fill="currentColor" d="m10 1.5 2.6 5.5 6 .8-4.4 4.1 1.1 6L10 15l-5.3 2.9 1.1-6L1.4 7.8l6-.8Z"/></svg>';
@@ -152,14 +203,18 @@
   (function hero() {
     var stage = $('#heroStage');
     var pick = function (id) { return vessel(byId[id]); };
+    function drawStage() {
     stage.innerHTML =
       '<div class="halo"></div><div class="arch"></div>' +
       '<div class="bottle b3 float slow">' + pick('glass-oil') + '</div>' +
       '<div class="bottle b1 float">' + pick('plush-conditioner') + '</div>' +
       '<div class="bottle b2 float slow">' + pick('cloud-wash') + '</div>' +
       '<div class="bottle b4 float">' + pick('bond-mask') + '</div>' +
-      '<span class="tag t1 float slow"><i>01</i> slip you can feel</span>' +
-      '<span class="tag t2 float"><i>02</i> 48h frizz shield</span>';
+      '<span class="tag t1 float slow"><i>01</i> ' + esc(t('tag1')) + '</span>' +
+      '<span class="tag t2 float"><i>02</i> ' + esc(t('tag2')) + '</span>';
+    }
+    drawStage();
+    onLangChange.push(drawStage);
 
     var svg = $('#strands');
     var NS = 'http://www.w3.org/2000/svg';
@@ -217,21 +272,21 @@
       var multi = p.sizes.length > 1;
       return '<article class="card enter" style="--d:' + (i * 0.04).toFixed(2) + 's;--tint:' + p.tint + '">' +
         '<div class="media-wrap">' +
-          (p.badge ? '<span class="badge' + (p.badge === 'New' ? ' new' : '') + '">' + esc(p.badge) + '</span>' : '') +
-          '<button class="card-media" type="button" data-open="' + p.id + '" aria-label="View ' + esc(p.name) + '">' + vessel(p) + '</button>' +
-          '<button class="quick-add" type="button" data-add="' + p.id + '" aria-label="Add ' + esc(p.name) + ' to bag, ' + money(priceFrom(p)) + '">Add to bag · ' + money(priceFrom(p)) + '</button>' +
+          (p.badge ? '<span class="badge' + (p.badge === 'New' ? ' new' : '') + '">' + esc(tr('badges', p.badge)) + '</span>' : '') +
+          '<button class="card-media" type="button" data-open="' + p.id + '" aria-label="' + esc(t('view', { n: P(p, 'name') })) + '">' + vessel(p) + '</button>' +
+          '<button class="quick-add" type="button" data-add="' + p.id + '" aria-label="' + esc(t('addAria', { n: P(p, 'name'), p: money(priceFrom(p)) })) + '">' + esc(t('add')) + ' · ' + num(money(priceFrom(p))) + '</button>' +
         '</div>' +
         '<div class="card-body">' +
-          '<div class="card-top"><span class="card-kind">' + p.kind + '</span><span class="card-rating">' + STAR + p.rating.toFixed(1) + ' <span class="visually-hidden">stars from</span>(' + p.reviews.toLocaleString() + ')</span></div>' +
-          '<h3><button type="button" data-open="' + p.id + '">' + esc(p.name) + '</button></h3>' +
-          '<p class="card-tag">' + esc(p.tagline) + '</p>' +
-          '<p class="card-price">' + (multi ? '<small>from </small>' : '') + money(priceFrom(p)) + ' <small>· ' + p.sizes[0].label + '</small></p>' +
+          '<div class="card-top"><span class="card-kind">' + esc(tr('kinds', p.kind)) + '</span><span class="card-rating">' + STAR + p.rating.toFixed(1) + ' <span class="visually-hidden">' + esc(t('starsFrom')) + '</span>' + num('(' + p.reviews.toLocaleString('en') + ')') + '</span></div>' +
+          '<h3><button type="button" data-open="' + p.id + '">' + esc(P(p, 'name')) + '</button></h3>' +
+          '<p class="card-tag">' + esc(P(p, 'tagline')) + '</p>' +
+          '<p class="card-price">' + (multi ? '<small>' + esc(t('from')) + ' </small>' : '') + num(money(priceFrom(p))) + ' <small>· ' + esc(sizeLabel(p.sizes[0].label)) + '</small></p>' +
         '</div></article>';
     }).join('');
 
     $('#emptyState').hidden = list.length > 0;
-    $('#resultCount').textContent = list.length + (list.length === 1 ? ' formula' : ' formulas') +
-      (filters.type !== 'all' ? ' for ' + filters.type + ' hair' : '');
+    $('#resultCount').textContent = t('count', list.length) +
+      (filters.type !== 'all' ? t('forType', { t: tr('types', filters.type) }) : '');
   }
 
   $('#typeFilter').addEventListener('click', function (e) {
@@ -245,7 +300,8 @@
     if (['ArrowRight', 'ArrowLeft'].indexOf(e.key) < 0) return;
     var btns = $$('[data-type]', this);
     var i = btns.indexOf(document.activeElement);
-    var n = btns[(i + (e.key === 'ArrowRight' ? 1 : -1) + btns.length) % btns.length];
+    var fwd = (e.key === 'ArrowRight') !== (document.documentElement.dir === 'rtl');
+    var n = btns[(i + (fwd ? 1 : -1) + btns.length) % btns.length];
     n.focus(); n.click(); e.preventDefault();
   });
   $('#kindFilter').addEventListener('click', function (e) {
@@ -294,27 +350,27 @@
     $('#pdpBody').innerHTML =
       '<div class="pdp-media" style="--tint:' + p.tint + '">' + vessel(p) + '</div>' +
       '<div class="pdp-info">' +
-        '<span class="eyebrow">' + p.kind + '</span>' +
-        '<h2 id="pdpTitle">' + esc(p.name) + '</h2>' +
-        '<p class="pdp-sub">' + esc(p.tagline) + '</p>' +
-        '<div class="pdp-rating"><span class="stars">' + STAR + STAR + STAR + STAR + STAR + '</span>' + p.rating.toFixed(1) + ' · ' + p.reviews.toLocaleString() + ' reviews</div>' +
-        '<p class="pdp-desc">' + esc(p.desc) + '</p>' +
-        '<p class="pdp-hero">Hero actives — ' + esc(p.hero) + '</p>' +
-        '<div class="sizes" role="radiogroup" aria-label="Size">' + p.sizes.map(function (s, i) {
-          return '<label><input type="radio" name="size" value="' + i + '"' + (i ? '' : ' checked') + '><span><b>' + money(s.price) + '</b>' + s.label + '</span></label>';
+        '<span class="eyebrow">' + esc(tr('kinds', p.kind)) + '</span>' +
+        '<h2 id="pdpTitle">' + esc(P(p, 'name')) + '</h2>' +
+        '<p class="pdp-sub">' + esc(P(p, 'tagline')) + '</p>' +
+        '<div class="pdp-rating"><span class="stars">' + STAR + STAR + STAR + STAR + STAR + '</span>' + p.rating.toFixed(1) + ' · ' + p.reviews.toLocaleString('en') + ' ' + esc(t('reviews')) + '</div>' +
+        '<p class="pdp-desc">' + esc(P(p, 'desc')) + '</p>' +
+        '<p class="pdp-hero">' + esc(t('heroActives')) + esc(P(p, 'hero')) + '</p>' +
+        '<div class="sizes" role="radiogroup" aria-label="' + esc(t('size')) + '">' + p.sizes.map(function (s, i) {
+          return '<label><input type="radio" name="size" value="' + i + '"' + (i ? '' : ' checked') + '><span><b>' + num(money(s.price)) + '</b>' + esc(sizeLabel(s.label)) + '</span></label>';
         }).join('') + '</div>' +
         '<div class="buy-row">' +
-          '<div class="stepper" aria-label="Quantity"><button type="button" data-q="-1" aria-label="Decrease quantity">−</button><output id="pdpQty">1</output><button type="button" data-q="1" aria-label="Increase quantity">+</button></div>' +
-          '<button class="btn btn-solid" type="button" id="pdpAdd">Add to bag · <span id="pdpPrice">' + money(p.sizes[0].price) + '</span></button>' +
+          '<div class="stepper" aria-label="' + esc(t('qty')) + '"><button type="button" data-q="-1" aria-label="' + esc(t('decQty')) + '">−</button><output id="pdpQty">1</output><button type="button" data-q="1" aria-label="' + esc(t('incQty')) + '">+</button></div>' +
+          '<button class="btn btn-solid" type="button" id="pdpAdd">' + esc(t('add')) + ' · <span id="pdpPrice" class="num">' + money(p.sizes[0].price) + '</span></button>' +
         '</div>' +
-        '<div class="pdp-perks"><span>Free shipping over $' + FREE_SHIP + '</span><span>90-day guarantee</span><span>Vegan & cruelty-free</span></div>' +
+        '<div class="pdp-perks"><span>' + esc(t('perkShip')) + '</span><span>' + esc(t('perkGuarantee')) + '</span><span>' + esc(t('perkVegan')) + '</span></div>' +
         '<div>' +
-          '<details open><summary>Made for</summary><div class="chips" style="padding-bottom:1rem">' +
-            p.types.map(function (t) { return '<span>' + t + '</span>'; }).join('') +
-            p.concerns.map(function (c) { return '<span>' + c + '</span>'; }).join('') +
+          '<details open><summary>' + esc(t('madeFor')) + '</summary><div class="chips" style="padding-bottom:1rem">' +
+            p.types.map(function (x) { return '<span>' + esc(tr('types', x)) + '</span>'; }).join('') +
+            p.concerns.map(function (c) { return '<span>' + esc(tr('concerns', c)) + '</span>'; }).join('') +
           '</div></details>' +
-          '<details><summary>How to use</summary><p>' + esc(p.howto) + '</p></details>' +
-          '<details><summary>Key ingredients</summary><ul>' + p.ingredients.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></details>' +
+          '<details><summary>' + esc(t('howto')) + '</summary><p>' + esc(P(p, 'howto')) + '</p></details>' +
+          '<details><summary>' + esc(t('keyIng')) + '</summary><ul>' + P(p, 'ingredients').map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></details>' +
         '</div>' +
       '</div>';
 
@@ -368,7 +424,7 @@
     if (l) l.qty = Math.min(9, l.qty + qty);
     else cart.push({ key: key, id: id, size: size, qty: qty });
     save(); renderCart(true);
-    toast(byId[id].name + ' added to your bag');
+    toast(t('added', { n: P(byId[id], 'name') }));
   }
   function addBundle(id) {
     var key = 'set:' + id;
@@ -391,10 +447,10 @@
   }
 
   function renderCart(bump) {
-    var t = totals();
+    var tot = totals();
     var badge = $('#bagCount');
-    badge.textContent = t.count;
-    $('#cartOpen').setAttribute('aria-label', 'Open bag, ' + t.count + (t.count === 1 ? ' item' : ' items'));
+    badge.textContent = tot.count;
+    $('#cartOpen').setAttribute('aria-label', t('openBag', { n: t('items', tot.count) }));
     if (bump) { badge.classList.remove('bump'); void badge.offsetWidth; badge.classList.add('bump'); }
     if (!$('#cartLines')) return;
 
@@ -403,37 +459,35 @@
     $('#cartLines').hidden = empty;
     $('#cartFoot').hidden = empty;
     $('#shipMeter').hidden = empty;
-    var left = FREE_SHIP - t.sub;
-    $('#shipText').innerHTML = left > 0
-      ? 'You’re <b>' + money(left) + '</b> away from free shipping.'
-      : 'You’ve unlocked <b>free carbon-neutral shipping</b>.';
-    $('#shipBar').style.width = Math.min(100, (t.sub / FREE_SHIP) * 100) + '%';
+    var left = FREE_SHIP - tot.sub;
+    $('#shipText').innerHTML = left > 0 ? t('shipLeft', { m: num(money(left)) }) : t('shipDone');
+    $('#shipBar').style.width = Math.min(100, (tot.sub / FREE_SHIP) * 100) + '%';
 
     $('#cartLines').innerHTML = cart.map(function (l) {
       var thumb, name, meta, full = '';
       if (l.bundle) {
         var b = bundleById(l.bundle);
         thumb = '<div class="line-thumb multi">' + b.items.slice(0, 3).map(function (id) { return vessel(byId[id]); }).join('') + '</div>';
-        name = b.name; meta = b.items.length + ' full-size products · save 20%';
-        full = '<s>' + money(bundleFull(b) * l.qty) + '</s>';
+        name = B(b, 'name'); meta = t('setMeta', { n: b.items.length });
+        full = '<s class="num">' + money(bundleFull(b) * l.qty) + '</s>';
       } else {
         var p = byId[l.id];
         thumb = '<div class="line-thumb">' + vessel(p) + '</div>';
-        name = p.name; meta = p.sizes[l.size].label + ' · ' + p.kind;
+        name = P(p, 'name'); meta = sizeLabel(p.sizes[l.size].label) + ' · ' + tr('kinds', p.kind);
       }
       return '<li class="line">' + thumb +
         '<div><h3>' + esc(name) + '</h3><small>' + esc(meta) + '</small>' +
-          '<div class="stepper" aria-label="Quantity for ' + esc(name) + '"><button type="button" data-line="' + l.key + '" data-d="-1" aria-label="Decrease">−</button><output>' + l.qty + '</output><button type="button" data-line="' + l.key + '" data-d="1" aria-label="Increase">+</button></div>' +
+          '<div class="stepper" aria-label="' + esc(t('qtyFor', { n: name })) + '"><button type="button" data-line="' + l.key + '" data-d="-1" aria-label="' + esc(t('dec')) + '">−</button><output>' + l.qty + '</output><button type="button" data-line="' + l.key + '" data-d="1" aria-label="' + esc(t('inc')) + '">+</button></div>' +
         '</div>' +
-        '<div class="line-right">' + money(linePrice(l) * l.qty) + full + '<button class="remove" type="button" data-remove="' + l.key + '">Remove</button></div>' +
+        '<div class="line-right">' + num(money(linePrice(l) * l.qty)) + full + '<button class="remove" type="button" data-remove="' + l.key + '">' + esc(t('remove')) + '</button></div>' +
       '</li>';
     }).join('');
 
-    $('#cartSubtotal').textContent = money(t.sub);
-    $('#cartSavings').textContent = '−' + money(t.savings);
-    $('#cartSavings').parentNode.hidden = t.savings === 0;
-    $('#cartShipping').textContent = t.ship ? money(t.ship) : 'Free';
-    $('#cartTotal').textContent = money(t.total);
+    $('#cartSubtotal').innerHTML = num(money(tot.sub));
+    $('#cartSavings').innerHTML = num('−' + money(tot.savings));
+    $('#cartSavings').parentNode.hidden = tot.savings === 0;
+    $('#cartShipping').innerHTML = tot.ship ? num(money(tot.ship)) : esc(t('free'));
+    $('#cartTotal').textContent = money(tot.total);
 
     // upsell: highest-rated product not already in the bag
     var inBag = {};
@@ -444,7 +498,7 @@
     var rec = PRODUCTS.filter(function (p) { return !inBag[p.id]; })
       .sort(function (a, b) { return b.rating * Math.log(b.reviews) - a.rating * Math.log(a.reviews); })[0];
     $('#upsell').innerHTML = !empty && rec
-      ? '<p>Pairs beautifully</p><div class="upsell-item"><div class="line-thumb">' + vessel(rec) + '</div><div><b>' + esc(rec.name) + '</b><br><small>' + esc(rec.tagline) + '</small></div><button class="btn btn-ghost" type="button" data-add="' + rec.id + '">+ ' + money(priceFrom(rec)) + '</button></div>'
+      ? '<p>' + esc(t('pairs')) + '</p><div class="upsell-item"><div class="line-thumb">' + vessel(rec) + '</div><div><b>' + esc(P(rec, 'name')) + '</b><br><small>' + esc(P(rec, 'tagline')) + '</small></div><button class="btn btn-ghost" type="button" data-add="' + rec.id + '" aria-label="' + esc(t('addAria', { n: P(rec, 'name'), p: money(priceFrom(rec)) })) + '">+ ' + num(money(priceFrom(rec))) + '</button></div>'
       : '';
   }
 
@@ -471,36 +525,39 @@
 
   cartDlg.addEventListener('click', function (e) {
     if (!e.target.closest('#checkoutBtn')) return;
-    var t = totals();
+    var tot = totals();
     drawerInner.innerHTML =
-      '<div class="drawer-head"><h2>Almost there</h2><button class="dialog-close static" type="button" data-close aria-label="Close">' +
+      '<div class="drawer-head"><h2>' + esc(t('almost')) + '</h2><button class="dialog-close static" type="button" data-close aria-label="' + esc(t('close')) + '">' +
       '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>' +
       '<div class="checkout-done"><div class="seal"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg></div>' +
-      '<h3>' + t.count + (t.count === 1 ? ' item' : ' items') + ' · ' + money(t.total) + '</h3>' +
-      '<p>This storefront is a demo, so no payment is taken here. Connect Shopify or Stripe Checkout to the button to go live.</p>' +
-      '<button class="btn btn-ghost" type="button" id="backToBag">Back to bag</button></div>';
+      '<h3>' + esc(t('items', tot.count)) + ' · ' + num(money(tot.total)) + '</h3>' +
+      '<p>' + esc(t('demoCheckout')) + '</p>' +
+      '<button class="btn btn-ghost" type="button" id="backToBag">' + esc(t('backToBag')) + '</button></div>';
   });
   cartDlg.addEventListener('click', function (e) {
-    if (e.target.closest('#backToBag')) { drawerInner.innerHTML = drawerMarkup; renderCart(); }
+    if (e.target.closest('#backToBag')) { drawerInner.innerHTML = drawerMarkup; applyStatic(); renderCart(); }
   });
   cartDlg.addEventListener('close', function () {
-    if (!$('#cartLines', drawerInner)) { drawerInner.innerHTML = drawerMarkup; renderCart(); }
+    if (!$('#cartLines', drawerInner)) { drawerInner.innerHTML = drawerMarkup; applyStatic(); renderCart(); }
   });
 
   /* ============================================================
      Sets
      ============================================================ */
+  function renderSets() {
   $('#setsGrid').innerHTML = BUNDLES.map(function (b) {
     var heights = [128, 150, 112, 138];
     return '<article class="set inview">' +
       '<div class="set-shelf">' + b.items.map(function (id, i) { return vessel(byId[id]).replace('<svg ', '<svg style="--h:' + heights[i % 4] + 'px" '); }).join('') + '</div>' +
-      '<span class="set-note">' + esc(b.note) + '</span>' +
-      '<h3>' + esc(b.name) + '</h3>' +
-      '<ul>' + b.items.map(function (id) { var p = byId[id]; return '<li><span>' + esc(p.name) + '</span><span>' + p.sizes[0].label + '</span></li>'; }).join('') + '</ul>' +
-      '<div class="set-foot"><span class="set-price"><b>' + money(bundlePrice(b)) + '</b><s>' + money(bundleFull(b)) + '</s></span>' +
-      '<button class="btn btn-solid" type="button" data-add-set="' + b.id + '">Add set</button></div>' +
+      '<span class="set-note">' + esc(B(b, 'note')) + '</span>' +
+      '<h3>' + esc(B(b, 'name')) + '</h3>' +
+      '<ul>' + b.items.map(function (id) { var p = byId[id]; return '<li><span>' + esc(P(p, 'name')) + '</span><span>' + esc(sizeLabel(p.sizes[0].label)) + '</span></li>'; }).join('') + '</ul>' +
+      '<div class="set-foot"><span class="set-price"><b class="num">' + money(bundlePrice(b)) + '</b><s class="num">' + money(bundleFull(b)) + '</s></span>' +
+      '<button class="btn btn-solid" type="button" data-add-set="' + b.id + '">' + esc(t('addSet')) + '</button></div>' +
     '</article>';
   }).join('');
+  }
+  renderSets();
 
   /* ============================================================
      Routine finder
@@ -519,7 +576,7 @@
       steps.forEach(function (s, i) { s.classList.toggle('on', i === step); });
       dots.forEach(function (d, i) { d.classList.toggle('on', i <= step); });
       back.hidden = step === 0;
-      next.textContent = step === steps.length - 1 ? 'See my routine' : 'Next';
+      next.textContent = step === steps.length - 1 ? t('seeRoutine') : t('next');
       next.disabled = !answered();
       next.hidden = false;
       result.hidden = true;
@@ -557,7 +614,7 @@
       return r.filter(function (id, i) { return r.indexOf(id) === i; });
     }
 
-    function finish() {
+    function finish(quiet) {
       var v = function (n) { return $('input[name="' + n + '"]:checked', form).value; };
       var type = v('type'), concern = v('concern'), stress = v('stress');
       var ids = recommend(type, concern, stress);
@@ -567,16 +624,17 @@
       result.hidden = false;
       next.hidden = true;
       back.hidden = true;
+      var typeName = lang === 'ar' ? tr('types', type) : type;
       result.innerHTML =
-        '<h3>Your ' + type + '-hair routine</h3>' +
-        '<p>Built around ' + ({ dryness: 'lasting moisture', frizz: 'frizz control', breakage: 'strength and repair', volume: 'root lift and body', scalp: 'a calm, balanced scalp', thinning: 'density and scalp health' })[concern] +
-          (stress === 'high' ? ', with bond repair for colour and heat.' : stress === 'mid' ? ', with heat protection for styling days.' : '.') + '</p>' +
+        '<h3>' + esc(t('routineTitle', { t: typeName })) + '</h3>' +
+        '<p>' + esc(t('builtAround', { x: (I18N.ui[lang].focus || I18N.ui.en.focus)[concern] }) +
+          t(stress === 'high' ? 'stressHigh' : stress === 'mid' ? 'stressMid' : 'stressLow')) + '</p>' +
         '<ol class="routine">' + ids.map(function (id) {
           var p = byId[id];
-          return '<li><span class="mini">' + vessel(p) + '</span><span><b>' + esc(p.name) + '</b><small>' + esc(p.tagline) + '</small></span><span class="p">' + money(priceFrom(p)) + '</span></li>';
+          return '<li><span class="mini">' + vessel(p) + '</span><span><b>' + esc(P(p, 'name')) + '</b><small>' + esc(P(p, 'tagline')) + '</small></span><span class="p">' + num(money(priceFrom(p))) + '</span></li>';
         }).join('') + '</ol>' +
-        '<div class="actions"><button class="btn btn-light" type="button" id="addRoutine">Add all ' + ids.length + ' · ' + money(total) + '</button>' +
-        '<button class="btn btn-ghost-light" type="button" id="finderRestart">Start over</button></div>';
+        '<div class="actions"><button class="btn btn-light" type="button" id="addRoutine">' + t('addAll', { n: ids.length, m: num(money(total)) }) + '</button>' +
+        '<button class="btn btn-ghost-light" type="button" id="finderRestart">' + esc(t('startOver')) + '</button></div>';
       $('#addRoutine').addEventListener('click', function () {
         ids.forEach(function (id) {
           var key = id + ':0';
@@ -586,9 +644,13 @@
         save(); renderCart(true); openCart();
       });
       $('#finderRestart').addEventListener('click', function () { form.reset(); step = 0; show(); });
-      $('#addRoutine').focus({ preventScroll: true });
+      if (!quiet) $('#addRoutine').focus({ preventScroll: true });
     }
     show();
+    onLangChange.push(function () {
+      if (!result.hidden) finish(true);
+      else show();
+    });
   })();
 
   /* ============================================================
@@ -598,7 +660,14 @@
     var dlg = $('#search');
     var input = $('#searchInput');
     var out = $('#searchResults');
-    function hay(p) { return [p.name, p.kind, p.tagline, p.hero, p.types.join(' '), p.concerns.join(' '), p.ingredients.join(' ')].join(' ').toLowerCase(); }
+    // Search matches English and Arabic text, whichever language is showing.
+    function hay(p) {
+      var ar = I18N.products[p.id] || {};
+      return [p.name, p.kind, p.tagline, p.hero, p.types.join(' '), p.concerns.join(' '), p.ingredients.join(' '),
+        ar.name, ar.tagline, ar.hero, (ar.ingredients || []).join(' '),
+        I18N.ui.ar.kinds[p.kind], p.types.map(function (x) { return I18N.ui.ar.types[x]; }).join(' '),
+        p.concerns.map(function (x) { return I18N.ui.ar.concerns[x]; }).join(' ')].join(' ').toLowerCase();
+    }
     function hl(text, q) {
       if (!q) return esc(text);
       var i = text.toLowerCase().indexOf(q);
@@ -610,8 +679,8 @@
       var terms = q.split(/\s+/).filter(Boolean);
       var list = PRODUCTS.filter(function (p) { var h = hay(p); return terms.every(function (t) { return h.indexOf(t) > -1; }); });
       out.innerHTML = list.length ? list.map(function (p) {
-        return '<li><button type="button" data-open="' + p.id + '"><span class="line-thumb">' + vessel(p) + '</span><span><b>' + hl(p.name, terms[0]) + '</b><small>' + esc(p.tagline) + '</small></span><span>' + money(priceFrom(p)) + '</span></button></li>';
-      }).join('') : '<li class="none">No matches for “' + esc(input.value) + '”. Try “frizz”, “oil” or “curls”.</li>';
+        return '<li><button type="button" data-open="' + p.id + '"><span class="line-thumb">' + vessel(p) + '</span><span><b>' + hl(P(p, 'name'), terms[0]) + '</b><small>' + esc(P(p, 'tagline')) + '</small></span>' + num(money(priceFrom(p))) + '</button></li>';
+      }).join('') : '<li class="none">' + esc(t('noMatch', { q: input.value })) + '</li>';
     }
     input.addEventListener('input', run);
     function open() { input.value = ''; run(); openDialog(dlg); input.focus(); }
@@ -636,8 +705,8 @@
     e.preventDefault();
     var input = $('#letterEmail');
     var msg = $('#letterMsg');
-    if (!input.checkValidity()) { msg.textContent = 'That email doesn’t look quite right.'; input.focus(); return; }
-    msg.textContent = 'You’re in. Check your inbox for 15% off.';
+    if (!input.checkValidity()) { msg.textContent = t('emailBad'); input.focus(); return; }
+    msg.textContent = t('emailOk');
     input.value = '';
   });
 
@@ -653,6 +722,11 @@
     entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('seen'); io.unobserve(en.target); } });
   }, { threshold: 0.2 }) : null;
   $$('.inview, #bench').forEach(function (el) { io ? io.observe(el) : el.classList.add('seen'); });
+
+  onLangChange.push(renderGrid, function () { renderCart(); }, renderSets, function () {
+    $$('.quote .stars').forEach(function (s) { s.innerHTML = STAR + STAR + STAR + STAR + STAR; });
+  });
+  $('#langToggle').addEventListener('click', function () { setLang(lang === 'ar' ? 'en' : 'ar'); });
 
   renderGrid();
   renderCart();

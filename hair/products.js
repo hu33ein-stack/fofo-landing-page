@@ -12,7 +12,7 @@ window.FOFO_PRODUCTS = [
     concerns: ['dryness', 'frizz', 'scalp'],
     sizes: [{ label: '250ml', price: 28 }, { label: '500ml', price: 46 }],
     rating: 4.8, reviews: 2140,
-    vessel: 'pump', tint: '#E8C9A8', badge: 'Bestseller',
+    vessel: 'pump', tint: '#D9E2D0', badge: 'Bestseller',
     ingredients: ['Rice amino acids', 'Oat beta-glucan', 'Coco-glucoside', 'Panthenol', 'Glycerin'],
     howto: 'Massage a coin-sized amount into a wet scalp for sixty seconds. Let the rinse water carry it down your lengths — no need to scrub the ends.'
   },
@@ -27,7 +27,7 @@ window.FOFO_PRODUCTS = [
     concerns: ['dryness', 'frizz', 'breakage'],
     sizes: [{ label: '250ml', price: 30 }, { label: '500ml', price: 50 }],
     rating: 4.9, reviews: 1873,
-    vessel: 'pump', tint: '#D9B9D6', badge: 'Bestseller',
+    vessel: 'pump', tint: '#E2B8C2', badge: 'Bestseller',
     ingredients: ['Cupuaçu butter', 'Behentrimonium methosulfate', 'Squalane', 'Hydrolyzed quinoa', 'Aloe leaf juice'],
     howto: 'Rake through mid-lengths to ends after cleansing. Detangle with fingers while it sits, then leave for three minutes before rinsing.'
   },
@@ -42,7 +42,7 @@ window.FOFO_PRODUCTS = [
     concerns: ['volume', 'oil'],
     sizes: [{ label: '250ml', price: 30 }, { label: '500ml', price: 50 }],
     rating: 4.7, reviews: 966,
-    vessel: 'pump', tint: '#C9DCCB',
+    vessel: 'pump', tint: '#BCD3C4',
     ingredients: ['Pea protein', 'Sodium hyaluronate', 'Cetearyl alcohol', 'Panthenol', 'Green tea extract'],
     howto: 'Apply from the ears down only. Leave for one minute, rinse with cool water to seal the cuticle.'
   },
@@ -57,7 +57,7 @@ window.FOFO_PRODUCTS = [
     concerns: ['breakage', 'color', 'dryness'],
     sizes: [{ label: '200ml', price: 42 }],
     rating: 4.9, reviews: 3312,
-    vessel: 'jar', tint: '#B98FC0', badge: 'Editor’s pick',
+    vessel: 'jar', tint: '#B06E80', badge: 'Editor’s pick',
     ingredients: ['Maleic acid', 'Ceramide NP', 'Keratin amino acids', 'Shea butter', 'Argan oil'],
     howto: 'Once a week, after cleansing, work a generous layer through towel-dried hair. Cover with a warm towel for 10–20 minutes, then rinse thoroughly.'
   },
@@ -72,7 +72,7 @@ window.FOFO_PRODUCTS = [
     concerns: ['scalp', 'volume', 'thinning'],
     sizes: [{ label: '50ml', price: 54 }],
     rating: 4.6, reviews: 1204,
-    vessel: 'dropper', tint: '#E3B27F', badge: 'New',
+    vessel: 'dropper', tint: '#D4B47C', badge: 'New',
     ingredients: ['Redensyl® peptide complex', 'Caffeine', 'Niacinamide', 'Rosemary leaf extract', 'Biotin'],
     howto: 'Part hair in sections and apply one full dropper directly to the scalp, morning or night. Massage for a minute; no need to rinse.'
   },
@@ -87,7 +87,7 @@ window.FOFO_PRODUCTS = [
     concerns: ['frizz', 'shine', 'dryness'],
     sizes: [{ label: '30ml', price: 32 }, { label: '100ml', price: 68 }],
     rating: 4.8, reviews: 2687,
-    vessel: 'dropper', tint: '#D7A35E', badge: 'Bestseller',
+    vessel: 'dropper', tint: '#C99B5B', badge: 'Bestseller',
     ingredients: ['Squalane', 'Camellia seed oil', 'Marula oil', 'Vitamin E', 'Sunflower seed oil'],
     howto: 'Warm two drops between your palms and glaze over the surface of dry or damp hair. Add a third to the ends only.'
   },
@@ -102,7 +102,7 @@ window.FOFO_PRODUCTS = [
     concerns: ['frizz', 'definition', 'dryness'],
     sizes: [{ label: '200ml', price: 34 }],
     rating: 4.8, reviews: 1590,
-    vessel: 'jar', tint: '#F0C6AE',
+    vessel: 'jar', tint: '#EBC9C4',
     ingredients: ['Flaxseed extract', 'Shea butter', 'Aloe leaf juice', 'Marshmallow root', 'Glycerin'],
     howto: 'On soaking-wet hair, rake through in sections, then praying-hands the surface. Scrunch upwards and air-dry or diffuse on low.'
   },
@@ -117,7 +117,7 @@ window.FOFO_PRODUCTS = [
     concerns: ['volume', 'definition'],
     sizes: [{ label: '150ml', price: 26 }],
     rating: 4.6, reviews: 811,
-    vessel: 'spray', tint: '#A8C6D6',
+    vessel: 'spray', tint: '#A9C3C9',
     ingredients: ['Beet sugar', 'Sea kelp extract', 'PVP', 'Panthenol', 'Glycerin'],
     howto: 'Mist 6–8 times through damp hair, scrunch, and air-dry or rough-dry with fingers.'
   },
@@ -132,7 +132,7 @@ window.FOFO_PRODUCTS = [
     concerns: ['breakage', 'frizz', 'shine'],
     sizes: [{ label: '150ml', price: 29 }],
     rating: 4.7, reviews: 1422,
-    vessel: 'spray', tint: '#E6D3A9',
+    vessel: 'spray', tint: '#E3D7B5',
     ingredients: ['Polyquaternium-55', 'Baobab protein', 'Hydrolyzed wheat protein', 'Glycerin', 'Amodimethicone'],
     howto: 'Mist evenly through damp or dry hair section by section before any hot tool. Comb through to distribute.'
   },
@@ -147,7 +147,7 @@ window.FOFO_PRODUCTS = [
     concerns: ['dryness', 'frizz', 'breakage'],
     sizes: [{ label: '200ml', price: 27 }],
     rating: 4.8, reviews: 2011,
-    vessel: 'tube', tint: '#EFE3D0',
+    vessel: 'tube', tint: '#F0ECE0',
     ingredients: ['Oat milk', 'Panthenol', 'Murumuru butter', 'Squalane', 'Aloe leaf juice'],
     howto: 'Smooth a walnut-sized amount through damp hair from mid-lengths down. Style as usual.'
   },
@@ -162,7 +162,7 @@ window.FOFO_PRODUCTS = [
     concerns: ['oil', 'scalp', 'volume'],
     sizes: [{ label: '250ml', price: 26 }],
     rating: 4.5, reviews: 604,
-    vessel: 'tube', tint: '#BFD4C2',
+    vessel: 'tube', tint: '#9FBFA8',
     ingredients: ['Green clay', 'Citric acid', 'Sodium phytate', 'Decyl glucoside', 'Peppermint oil'],
     howto: 'Use in place of your regular shampoo every 2–4 weeks. Lather twice, then follow with Plush or Featherlight Conditioner.'
   },
@@ -177,7 +177,7 @@ window.FOFO_PRODUCTS = [
     concerns: ['breakage', 'frizz'],
     sizes: [{ label: 'Set of 3', price: 24 }],
     rating: 4.9, reviews: 978,
-    vessel: 'scrunchie', tint: '#C7A6DE',
+    vessel: 'scrunchie', tint: '#D9A3B3',
     ingredients: ['22-momme grade-6A mulberry silk', 'Covered elastic core'],
     howto: 'Wrap loosely; silk grips on its own. Hand-wash cool and lay flat to dry.'
   }

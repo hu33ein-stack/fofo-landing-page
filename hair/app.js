@@ -72,8 +72,8 @@
      Packaging illustrations
      ============================================================ */
   var uid = 0;
-  var CAP = '#2B1E18';
-  var LABEL = '#FFFBF6';
+  var CAP = '#1E2A23';
+  var LABEL = '#FBFCF8';
 
   function shade(hex, amt) {
     var n = parseInt(hex.slice(1), 16);
@@ -117,7 +117,7 @@
     var defs = '<defs>' +
       '<linearGradient id="' + id + 'b" x1="0" x2="1"><stop offset="0" stop-color="' + shade(tint, -22) + '"/><stop offset=".45" stop-color="' + tint + '"/><stop offset="1" stop-color="' + shade(tint, -30) + '"/></linearGradient>' +
       '<linearGradient id="' + id + 'g" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>' +
-      '<linearGradient id="' + id + 'c" x1="0" x2="1"><stop offset="0" stop-color="#1A110D"/><stop offset=".5" stop-color="#4A362B"/><stop offset="1" stop-color="#1A110D"/></linearGradient>' +
+      '<linearGradient id="' + id + 'c" x1="0" x2="1"><stop offset="0" stop-color="#121A15"/><stop offset=".5" stop-color="#3A4A40"/><stop offset="1" stop-color="#121A15"/></linearGradient>' +
       '</defs>';
     var body = '';
     switch (p.vessel) {
@@ -125,7 +125,7 @@
         body =
           '<path d="M38 16h40a4 4 0 0 1 4 4v4a4 4 0 0 1-4 4H38a4 4 0 0 1-4-4v-4a4 4 0 0 1 4-4Z" fill="url(#' + id + 'c)"/>' +
           '<path d="M34 20H14a4 4 0 0 0 0 6h20Z" fill="url(#' + id + 'c)"/>' +
-          '<rect x="55" y="27" width="10" height="24" fill="#3A2A21"/>' +
+          '<rect x="55" y="27" width="10" height="24" fill="#2E3A33"/>' +
           '<rect x="42" y="48" width="36" height="24" rx="4" fill="url(#' + id + 'c)"/>' +
           '<rect x="20" y="68" width="80" height="168" rx="20" fill="url(#' + id + 'b)"/>' +
           gloss(id, 28, 78, 14, 140, 7) +
@@ -150,7 +150,7 @@
       case 'spray':
         body =
           '<rect x="44" y="18" width="32" height="38" rx="8" fill="url(#' + id + 'c)"/>' +
-          '<circle cx="48" cy="30" r="2.5" fill="#6E5446"/>' +
+          '<circle cx="48" cy="30" r="2.5" fill="#5A6A60"/>' +
           '<rect x="38" y="54" width="44" height="22" rx="4" fill="url(#' + id + 'c)"/>' +
           '<rect x="22" y="74" width="76" height="162" rx="14" fill="url(#' + id + 'b)"/>' +
           gloss(id, 30, 84, 12, 138, 6) +
@@ -168,7 +168,7 @@
         body =
           '<path d="' + ringPath(60, 206, 42, 14, 4, 0.32) + '" fill="' + shade(tint, -30) + '"/>' +
           '<path d="' + ringPath(60, 204, 24, 12, 2, 0.28) + '" fill="#000" fill-opacity=".25"/>' +
-          '<path d="' + ringPath(60, 176, 38, 13, 4, 0.34) + '" fill="#E3B27F"/>' +
+          '<path d="' + ringPath(60, 176, 38, 13, 4, 0.34) + '" fill="#C9A96E"/>' +
           '<path d="' + ringPath(60, 174, 21, 11, 2, 0.3) + '" fill="#000" fill-opacity=".22"/>' +
           '<path d="' + ringPath(60, 146, 34, 12, 4, 0.36) + '" fill="url(#' + id + 'b)"/>' +
           '<path d="' + ringPath(60, 144, 18, 10, 2, 0.3) + '" fill="#000" fill-opacity=".2"/>' +

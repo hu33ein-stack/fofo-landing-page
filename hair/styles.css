@@ -8,20 +8,20 @@
 @font-face{ font-family:'JetBrains Var'; font-style:normal; font-weight:400 500; font-display:swap; src:url(../assets/fonts/jetbrains-var.woff2) format('woff2'); }
 
 :root{
-  --bg:#F4ECE2;
-  --surface:#FFFBF6;
-  --sunk:#EADFD2;
-  --ink:#2B1E18;
-  --ink-soft:#6F5B50;
-  --accent:#9C4A1F;
-  --accent-ink:#FFF7EF;
-  --honey:#D7A35E;
-  --plum:#715086;
-  --line:#DCCFC1;
-  --deep:#2B1E18;
-  --deep-ink:#F6ECE0;
-  --deep-soft:#BFAA98;
-  --shadow:24 40% 14%;
+  --bg:#EDF0E8;
+  --surface:#FAFBF7;
+  --sunk:#E1E6DA;
+  --ink:#1E2A23;
+  --ink-soft:#56645B;
+  --accent:#A34A5E;
+  --accent-ink:#FFF7F8;
+  --honey:#C9A96E;
+  --plum:#6F8F78;
+  --line:#CFD6C8;
+  --deep:#1E2A23;
+  --deep-ink:#F1F4EC;
+  --deep-soft:#A9B7AC;
+  --shadow:140 25% 12%;
 
   --font-display:'Fraunces Var', Georgia, 'Times New Roman', serif;
   --font-body:'Hanken Var', -apple-system, 'Segoe UI', sans-serif;
@@ -36,16 +36,16 @@
   color-scheme:light;
 }
 :root[data-theme="dark"]{
-  --bg:#17110E; --surface:#211914; --sunk:#110C09; --ink:#F3E9DF; --ink-soft:#BFAE9F;
-  --accent:#E59A62; --accent-ink:#22140B; --honey:#D7A35E; --plum:#C7A6DE; --line:#3A2D25;
-  --deep:#2A1E17; --deep-ink:#F6ECE0; --deep-soft:#BFAA98; --shadow:20 50% 3%;
+  --bg:#121A15; --surface:#1A241E; --sunk:#0D130F; --ink:#EAF0E6; --ink-soft:#A9B7AC;
+  --accent:#E48FA2; --accent-ink:#2A0F16; --honey:#D6BA82; --plum:#9DBBA3; --line:#2C3930;
+  --deep:#1A261F; --deep-ink:#EEF3EA; --deep-soft:#A9B7AC; --shadow:140 40% 3%;
   color-scheme:dark;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg:#17110E; --surface:#211914; --sunk:#110C09; --ink:#F3E9DF; --ink-soft:#BFAE9F;
-    --accent:#E59A62; --accent-ink:#22140B; --honey:#D7A35E; --plum:#C7A6DE; --line:#3A2D25;
-    --deep:#2A1E17; --deep-ink:#F6ECE0; --deep-soft:#BFAA98; --shadow:20 50% 3%;
+    --bg:#121A15; --surface:#1A241E; --sunk:#0D130F; --ink:#EAF0E6; --ink-soft:#A9B7AC;
+    --accent:#E48FA2; --accent-ink:#2A0F16; --honey:#D6BA82; --plum:#9DBBA3; --line:#2C3930;
+    --deep:#1A261F; --deep-ink:#EEF3EA; --deep-soft:#A9B7AC; --shadow:140 40% 3%;
     color-scheme:dark;
   }
 }
@@ -437,7 +437,7 @@ section{ padding-block:var(--s5); }
 .quote blockquote{ margin:0; font-family:var(--font-display); font-size:1.12rem; line-height:1.4; font-weight:400; }
 .quote figcaption{ margin-top:auto; display:flex; align-items:center; gap:.7rem; font-size:.88rem; }
 .quote figcaption small{ display:block; color:var(--ink-soft); font-size:.76rem; }
-.av{ width:38px; height:38px; border-radius:50%; background:var(--c); color:#2B1E18; display:grid; place-items:center; font-family:var(--font-display); font-style:italic; font-size:1.1rem; flex:none; }
+.av{ width:38px; height:38px; border-radius:50%; background:var(--c); color:#1E2A23; display:grid; place-items:center; font-family:var(--font-display); font-style:italic; font-size:1.1rem; flex:none; }
 
 /* ---------- faq ---------- */
 .faq-grid{ display:grid; gap:var(--s3); }

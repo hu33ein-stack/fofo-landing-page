@@ -113,13 +113,6 @@ em{ font-style:italic; }
 .btn-ghost-light:hover{ border-color:var(--deep-ink); }
 .btn.wide{ width:100%; }
 
-/* ---------- announce ---------- */
-.announce{ background:var(--fill); color:var(--fill-ink); font-size:.78rem; letter-spacing:.02em; overflow:hidden; }
-.announce-track{ display:flex; justify-content:center; gap:1.4rem; padding:.55rem 16px; white-space:nowrap; }
-.announce-track span:nth-child(n+3){ display:none; }
-@media (min-width:720px){ .announce-track span:nth-child(n+3){ display:inline; } }
-.announce-track [aria-hidden]{ color:var(--honey); }
-
 /* ---------- header ---------- */
 .site-header{
   position:sticky; top:0; z-index:200;

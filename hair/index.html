@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="fofo hair — clean, lab-proven hair care for every texture from 1A to 4C. Shampoos, conditioners, bond masks, oils and scalp care.">
+<meta name="theme-color" content="#F4ECE2">
+<title>fofo hair — the soft hair shop</title>
+<link rel="preload" href="../assets/fonts/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/hanken-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="announce" role="region" aria-label="Announcement">
+  <div class="announce-track">
+    <span>Free carbon-neutral shipping over $50</span>
+    <span aria-hidden="true">✦</span>
+    <span>90-day empty-bottle guarantee</span>
+    <span aria-hidden="true">✦</span>
+    <span>Sets save 20%, always</span>
+  </div>
+</div>
+
+<header class="site-header" id="top">
+  <div class="wrap nav">
+    <a href="#top" class="logo" aria-label="fofo hair, home">fofo<span>hair</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#shop">Shop</a>
+      <a href="#finder">Routine finder</a>
+      <a href="#sets">Sets</a>
+      <a href="#science">Science</a>
+      <a href="#faq">Help</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchOpen" type="button" aria-label="Search products">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle dark mode">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+      <button class="bag-btn" id="cartOpen" type="button" aria-label="Open bag, 0 items">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span>Bag</span>
+        <span class="bag-count" id="bagCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <svg class="strands" id="strands" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow reveal">Hair care for every texture · 1A to 4C</p>
+        <h1 class="reveal" style="--d:.08s">Hair that feels<br><em>impossibly</em> fofo.</h1>
+        <p class="lede reveal" style="--d:.16s">Twelve clean, lab-measured formulas that do one thing each — and do it beautifully. Built with stylists, tested on every curl pattern, never tested on animals.</p>
+        <div class="hero-actions reveal" style="--d:.24s">
+          <a href="#shop" class="btn btn-solid">Shop the collection</a>
+          <a href="#finder" class="btn btn-ghost">Find my routine <span aria-hidden="true">→</span></a>
+        </div>
+        <dl class="hero-meta reveal" style="--d:.32s">
+          <div><dt>4.8</dt><dd>from 19,600+ reviews</dd></div>
+          <div><dt>41%</dt><dd>less breakage in 4 weeks</dd></div>
+          <div><dt>0</dt><dd>sulfates, parabens, drying alcohols</dd></div>
+        </dl>
+      </div>
+      <div class="hero-stage reveal" style="--d:.2s" id="heroStage" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- ============ PRESS ============ -->
+  <div class="press" aria-label="As featured in">
+    <div class="wrap press-row">
+      <span class="press-label">As seen in</span>
+      <span class="press-name" style="font-style:italic">Allure</span>
+      <span class="press-name" style="letter-spacing:.2em;font-size:.95rem">VOGUE</span>
+      <span class="press-name">Byrdie</span>
+      <span class="press-name" style="font-style:italic">Refinery29</span>
+      <span class="press-name" style="letter-spacing:.12em;font-size:.9rem">ELLE</span>
+    </div>
+  </div>
+
+  <!-- ============ SHOP ============ -->
+  <section id="shop" class="shop">
+    <div class="wrap">
+      <div class="section-head split">
+        <div>
+          <p class="eyebrow">The collection</p>
+          <h2>Start with your texture.</h2>
+        </div>
+        <p>Tap your pattern and we’ll narrow the shelf to the formulas that were actually tested on hair like yours.</p>
+      </div>
+
+      <div class="spectrum" role="radiogroup" aria-label="Filter by hair type" id="typeFilter">
+        <button type="button" role="radio" aria-checked="true" data-type="all" class="spec">
+          <svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="3.5" fill="currentColor"/><circle cx="30" cy="30" r="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 4"/></svg>
+          <span class="spec-name">All hair</span><span class="spec-code">1A–4C</span>
+        </button>
+        <button type="button" role="radio" aria-checked="false" data-type="straight" class="spec">
+          <svg viewBox="0 0 60 60" aria-hidden="true"><path d="M18 6v48M30 6v48M42 6v48" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <span class="spec-name">Straight</span><span class="spec-code">Type 1</span>
+        </button>
+        <button type="button" role="radio" aria-checked="false" data-type="wavy" class="spec">
+          <svg viewBox="0 0 60 60" aria-hidden="true"><path d="M18 6c-8 8 8 16 0 24s8 16 0 24M30 6c-8 8 8 16 0 24s8 16 0 24M42 6c-8 8 8 16 0 24s8 16 0 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <span class="spec-name">Wavy</span><span class="spec-code">Type 2</span>
+        </button>
+        <button type="button" role="radio" aria-checked="false" data-type="curly" class="spec">
+          <svg viewBox="0 0 60 60" aria-hidden="true"><path d="M24 6c10 0 10 10 0 10s-10 10 0 10 10 10 0 10-10 10 0 10 10 8 0 8M40 6c10 0 10 10 0 10s-10 10 0 10 10 10 0 10-10 10 0 10 10 8 0 8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <span class="spec-name">Curly</span><span class="spec-code">Type 3</span>
+        </button>
+        <button type="button" role="radio" aria-checked="false" data-type="coily" class="spec">
+          <svg viewBox="0 0 60 60" aria-hidden="true"><path d="M30 5c6 0 6 5 0 5s-6 5 0 5 6 5 0 5-6 5 0 5 6 5 0 5-6 5 0 5 6 5 0 5-6 5 0 5 6 5 0 5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M17 8c5 0 5 5 0 5s-5 5 0 5 5 5 0 5-5 5 0 5 5 5 0 5-5 5 0 5 5 5 0 5M43 8c5 0 5 5 0 5s-5 5 0 5 5 5 0 5-5 5 0 5 5 5 0 5-5 5 0 5 5 5 0 5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".6"/></svg>
+          <span class="spec-name">Coily</span><span class="spec-code">Type 4</span>
+        </button>
+      </div>
+
+      <div class="toolbar">
+        <div class="tabs" role="tablist" aria-label="Filter by category" id="kindFilter">
+          <button type="button" role="tab" aria-selected="true" data-kind="all">Everything</button>
+          <button type="button" role="tab" aria-selected="false" data-kind="Cleanse">Cleanse</button>
+          <button type="button" role="tab" aria-selected="false" data-kind="Condition">Condition</button>
+          <button type="button" role="tab" aria-selected="false" data-kind="Treat">Treat</button>
+          <button type="button" role="tab" aria-selected="false" data-kind="Style">Style</button>
+          <button type="button" role="tab" aria-selected="false" data-kind="Tools">Tools</button>
+        </div>
+        <div class="toolbar-right">
+          <label class="select">
+            <span class="visually-hidden">Filter by concern</span>
+            <select id="concernFilter">
+              <option value="all">Any concern</option>
+              <option value="dryness">Dryness</option>
+              <option value="frizz">Frizz</option>
+              <option value="breakage">Breakage</option>
+              <option value="volume">Flat / no volume</option>
+              <option value="scalp">Scalp care</option>
+              <option value="thinning">Thinning</option>
+              <option value="shine">Dullness</option>
+              <option value="definition">Definition</option>
+              <option value="color">Colour-treated</option>
+              <option value="oil">Oily roots</option>
+            </select>
+          </label>
+          <label class="select">
+            <span class="visually-hidden">Sort products</span>
+            <select id="sortBy">
+              <option value="featured">Featured</option>
+              <option value="rating">Top rated</option>
+              <option value="price-asc">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <p class="result-count" id="resultCount" aria-live="polite"></p>
+      <div class="grid" id="productGrid"></div>
+      <div class="empty" id="emptyState" hidden>
+        <p>Nothing on the shelf matches all of that.</p>
+        <button type="button" class="btn btn-ghost" id="resetFilters">Clear filters</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINDER ============ -->
+  <section id="finder" class="finder">
+    <div class="wrap">
+      <div class="finder-card">
+        <div class="finder-intro">
+          <p class="eyebrow eyebrow-light">Routine finder · 30 seconds</p>
+          <h2>Three questions.<br>One routine that fits.</h2>
+          <p>Our stylists built this from 4,000 in-salon consultations. Answer honestly — your hair will know.</p>
+          <ol class="finder-progress" id="finderProgress" aria-label="Progress">
+            <li class="on"></li><li></li><li></li>
+          </ol>
+        </div>
+        <form class="finder-body" id="finderForm" novalidate>
+          <fieldset class="q on" data-step="0">
+            <legend>What’s your natural pattern when it air-dries?</legend>
+            <div class="opts">
+              <label><input type="radio" name="type" value="straight"><span>Straight, lies flat</span></label>
+              <label><input type="radio" name="type" value="wavy"><span>Loose S-waves</span></label>
+              <label><input type="radio" name="type" value="curly"><span>Springy curls</span></label>
+              <label><input type="radio" name="type" value="coily"><span>Tight coils / zig-zags</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="q" data-step="1">
+            <legend>What bothers you most, honestly?</legend>
+            <div class="opts">
+              <label><input type="radio" name="concern" value="dryness"><span>It feels dry or rough</span></label>
+              <label><input type="radio" name="concern" value="frizz"><span>Frizz, any humidity</span></label>
+              <label><input type="radio" name="concern" value="breakage"><span>Snapping & split ends</span></label>
+              <label><input type="radio" name="concern" value="volume"><span>Flat, falls limp</span></label>
+              <label><input type="radio" name="concern" value="scalp"><span>Itchy or oily scalp</span></label>
+              <label><input type="radio" name="concern" value="thinning"><span>Shedding / thinning</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="q" data-step="2">
+            <legend>How often do you use heat, colour or bleach?</legend>
+            <div class="opts">
+              <label><input type="radio" name="stress" value="low"><span>Rarely — it’s mostly air-dried</span></label>
+              <label><input type="radio" name="stress" value="mid"><span>Heat styling a few times a week</span></label>
+              <label><input type="radio" name="stress" value="high"><span>Colour, bleach or daily heat</span></label>
+            </div>
+          </fieldset>
+          <div class="finder-result" id="finderResult" hidden></div>
+          <div class="finder-nav">
+            <button type="button" class="btn btn-ghost-light" id="finderBack" hidden>Back</button>
+            <button type="button" class="btn btn-light" id="finderNext" disabled>Next</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SETS ============ -->
+  <section id="sets">
+    <div class="wrap">
+      <div class="section-head split">
+        <div>
+          <p class="eyebrow">Sets · save 20%</p>
+          <h2>Whole routines, already worked out.</h2>
+        </div>
+        <p>Each set is a complete wash-day, built so every step makes the next one work better. Every set ships with a reusable cotton wash bag.</p>
+      </div>
+      <div class="sets" id="setsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ SCIENCE ============ -->
+  <section id="science" class="science">
+    <div class="wrap science-grid">
+      <div class="science-copy">
+        <p class="eyebrow">The fofo standard</p>
+        <h2>Soft is a measurement, not a mood.</h2>
+        <p>Every formula is tested on real hair tresses in an independent lab before it reaches a shelf — combing force, tensile strength, frizz under 80% humidity. If it can’t beat the benchmark, it doesn’t ship.</p>
+        <ul class="standard">
+          <li><b>Five-texture panel.</b> Each launch is tested on straight, wavy, curly, coily and colour-treated hair.</li>
+          <li><b>Short, named ingredient lists.</b> Every ingredient is on the label because it does a job you can feel.</li>
+          <li><b>Refillable by default.</b> Aluminium bottles, recyclable pouches, and 30% off every refill.</li>
+        </ul>
+      </div>
+      <div class="bench" id="bench">
+        <div class="bench-head"><span>Lab results · 4-week use</span><span>vs. untreated</span></div>
+        <div class="bench-row" style="--v:41"><span class="bench-label">Less breakage</span><span class="bench-bar"><i></i></span><span class="bench-num">41%</span></div>
+        <div class="bench-row" style="--v:68"><span class="bench-label">Easier detangling</span><span class="bench-bar"><i></i></span><span class="bench-num">68%</span></div>
+        <div class="bench-row" style="--v:54"><span class="bench-label">Less frizz at 80% RH</span><span class="bench-bar"><i></i></span><span class="bench-num">54%</span></div>
+        <div class="bench-row" style="--v:2.3"><span class="bench-label">Shine increase</span><span class="bench-bar" style="--w:76%"><i></i></span><span class="bench-num">2.3×</span></div>
+        <p class="bench-note">Independent lab, n = 60 tresses per texture group, Cloud Wash + Plush Conditioner + Deep Bond Mask routine.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ REVIEWS ============ -->
+  <section id="reviews" class="reviews">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">19,600+ reviews</p>
+        <h2>Heard at the bathroom mirror.</h2>
+      </div>
+      <div class="quote-grid">
+        <figure class="quote">
+          <div class="stars" aria-label="5 out of 5 stars"></div>
+          <blockquote>“I’ve bleached my hair platinum for six years. The Bond Mask is the first thing that made it feel like hair again instead of cotton candy.”</blockquote>
+          <figcaption><span class="av" style="--c:#E3B27F">J</span><span><b>Jess K.</b><small>Type 1B · bleached</small></span></figcaption>
+        </figure>
+        <figure class="quote">
+          <div class="stars" aria-label="5 out of 5 stars"></div>
+          <blockquote>“Coil Cloud gives me definition on 4B hair with no crunch and no flakes. Day-three hair still looks like day one.”</blockquote>
+          <figcaption><span class="av" style="--c:#B98FC0">A</span><span><b>Amara O.</b><small>Type 4B · natural</small></span></figcaption>
+        </figure>
+        <figure class="quote">
+          <div class="stars" aria-label="5 out of 5 stars"></div>
+          <blockquote>“Fine, flat hair my whole life. The Lift Set gave me actual volume at the roots — and it lasts past lunch now.”</blockquote>
+          <figcaption><span class="av" style="--c:#A8C6D6">R</span><span><b>Rafael M.</b><small>Type 1A · fine</small></span></figcaption>
+        </figure>
+        <figure class="quote">
+          <div class="stars" aria-label="5 out of 5 stars"></div>
+          <blockquote>“The Glass Oil smells like nothing and makes my curls shine like I just left the salon. Two drops. That’s it.”</blockquote>
+          <figcaption><span class="av" style="--c:#C9DCCB">N</span><span><b>Noor H.</b><small>Type 3A · colour-treated</small></span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section id="faq">
+    <div class="wrap faq-grid">
+      <div class="section-head">
+        <p class="eyebrow">Help</p>
+        <h2>Before your first wash.</h2>
+        <p>Still stuck? Our stylists answer every message within a day at <a href="mailto:hello@fofo.hair">hello@fofo.hair</a>.</p>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>How fast will I see a difference?</summary>
+          <p>Slip and softness are immediate — you’ll feel it on the first wash. Strength and breakage results build over four weekly Bond Mask uses, and scalp-density results over 12 weeks of daily Root Ritual.</p>
+        </details>
+        <details>
+          <summary>Are your products safe for colour-treated and keratin-treated hair?</summary>
+          <p>Yes. Everything is sulfate-free and pH-balanced between 4.5 and 5.5, which helps keep the cuticle closed and colour locked in. Wait 72 hours after a keratin treatment before the first wash.</p>
+        </details>
+        <details>
+          <summary>Do you use silicones?</summary>
+          <p>Only one — a water-soluble amodimethicone in Heat Veil, where it’s the most effective thermal barrier we tested. It rinses clean with Cloud Wash and never builds up.</p>
+        </details>
+        <details>
+          <summary>What if it doesn’t work for my hair?</summary>
+          <p>Use it for up to 90 days. If you don’t love it, send us a note — even if the bottle is empty — and we’ll refund you in full. No return shipping needed.</p>
+        </details>
+        <details>
+          <summary>How long does shipping take?</summary>
+          <p>Orders ship within one business day. Standard delivery takes 2–5 days and is free over $50; express is $9 and arrives in 1–2 days.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NEWSLETTER ============ -->
+  <section class="letter">
+    <div class="wrap">
+      <div class="letter-card">
+        <div>
+          <p class="eyebrow">The Soft Letter</p>
+          <h2>Wash-day notes, twice a month.</h2>
+          <p>Stylist techniques, early access to launches, and 15% off your first order.</p>
+        </div>
+        <form class="letter-form" id="letterForm">
+          <label class="visually-hidden" for="letterEmail">Email address</label>
+          <input id="letterEmail" type="email" placeholder="you@example.com" required autocomplete="email">
+          <button class="btn btn-solid" type="submit">Subscribe</button>
+          <p class="letter-msg" id="letterMsg" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#top" class="logo">fofo<span>hair</span></a>
+        <p>Soft, strong, shiny hair — made with care in small batches. A sister line to <a href="../index.html">fofo skin</a>.</p>
+      </div>
+      <nav aria-label="Shop">
+        <h3>Shop</h3>
+        <a href="#shop">All products</a>
+        <a href="#sets">Sets</a>
+        <a href="#finder">Routine finder</a>
+      </nav>
+      <nav aria-label="Help">
+        <h3>Help</h3>
+        <a href="#faq">Shipping & returns</a>
+        <a href="#faq">90-day guarantee</a>
+        <a href="mailto:hello@fofo.hair">Contact a stylist</a>
+      </nav>
+      <nav aria-label="Company">
+        <h3>Company</h3>
+        <a href="#science">Our standard</a>
+        <a href="#science">Refill program</a>
+        <a href="../index.html">fofo skin</a>
+      </nav>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 fofo. Cruelty-free · Leaping Bunny certified.</span>
+      <span>Prices in USD</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ PRODUCT DIALOG ============ -->
+<dialog class="pdp" id="pdp" aria-labelledby="pdpTitle">
+  <button class="dialog-close" type="button" data-close aria-label="Close">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
+  <div class="pdp-grid" id="pdpBody"></div>
+</dialog>
+
+<!-- ============ CART DRAWER ============ -->
+<dialog class="drawer" id="cart" aria-labelledby="cartTitle">
+  <div class="drawer-inner">
+    <div class="drawer-head">
+      <h2 id="cartTitle">Your bag</h2>
+      <button class="dialog-close static" type="button" data-close aria-label="Close bag">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="ship-meter" id="shipMeter">
+      <p id="shipText"></p>
+      <div class="meter"><i id="shipBar"></i></div>
+    </div>
+    <ul class="cart-lines" id="cartLines"></ul>
+    <div class="cart-empty" id="cartEmpty">
+      <p>Your bag is feeling a little flat.</p>
+      <a href="#shop" class="btn btn-solid" data-close>Browse the shelf</a>
+    </div>
+    <div class="upsell" id="upsell"></div>
+    <div class="drawer-foot" id="cartFoot">
+      <div class="sum-row"><span>Subtotal</span><span id="cartSubtotal">$0</span></div>
+      <div class="sum-row soft"><span>Set savings</span><span id="cartSavings">−$0</span></div>
+      <div class="sum-row soft"><span>Shipping</span><span id="cartShipping">Calculated next</span></div>
+      <button class="btn btn-solid wide" type="button" id="checkoutBtn">Checkout · <span id="cartTotal">$0</span></button>
+      <p class="fine">Taxes calculated at checkout · 90-day guarantee</p>
+    </div>
+  </div>
+</dialog>
+
+<!-- ============ SEARCH ============ -->
+<dialog class="search" id="search" aria-label="Search products">
+  <div class="search-inner">
+    <div class="search-bar">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="search" id="searchInput" placeholder="Search oils, masks, frizz, curls…" autocomplete="off" aria-label="Search">
+      <button class="dialog-close static" type="button" data-close aria-label="Close search">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <ul class="search-results" id="searchResults"></ul>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="products.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

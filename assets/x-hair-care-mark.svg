@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="X Hair Care">
+  <rect width="64" height="64" rx="14" fill="#F6F8F3"/>
+  <g transform="translate(6 6) scale(.8125)">
+    <path d="M55 6 C29.7 13.3 34.3 50.7 9 58 C42.3 58.7 37.7 21.3 55 6Z" fill="#1E2A23"/>
+    <path d="M9 6 C34.3 13.3 29.7 50.7 55 58 C21.7 58.7 26.3 21.3 9 6Z" fill="#B0536A" stroke="#F6F8F3" stroke-width="3.5" stroke-linejoin="round" paint-order="stroke"/>
+  </g>
+</svg>

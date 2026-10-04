@@ -1,4 +1,4 @@
-/* fofo hair — product catalog.
+/* X Hair Care — product catalog.
    `vessel` picks the illustrated packaging shape, `tint` is the liquid/label colour. */
 window.FOFO_PRODUCTS = [
   {

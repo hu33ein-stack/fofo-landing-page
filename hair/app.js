@@ -89,7 +89,7 @@
     var short = words[1] && (words[0] + words[1]).length <= 10 ? words[0] + ' ' + words[1] : words[0];
     var fs = Math.min(15, (w - 10) / (short.length * 0.52));
     return '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="4" fill="' + LABEL + '"/>' +
-      '<text x="' + cx + '" y="' + (y + h * 0.3) + '" text-anchor="middle" font-family="Fraunces Var, Georgia, serif" font-style="italic" font-size="13" fill="' + CAP + '">fofo</text>' +
+      '<g transform="translate(' + (cx - 6.5) + ' ' + (y + h * 0.1) + ') scale(.2)"><path d="M55 6 C29.7 13.3 34.3 50.7 9 58 C42.3 58.7 37.7 21.3 55 6Z" fill="' + CAP + '"/><path d="M9 6 C34.3 13.3 29.7 50.7 55 58 C21.7 58.7 26.3 21.3 9 6Z" fill="#B0536A" stroke="' + LABEL + '" stroke-width="4" stroke-linejoin="round" paint-order="stroke"/></g>' +
       '<line x1="' + (cx - 10) + '" x2="' + (cx + 10) + '" y1="' + (y + h * 0.4) + '" y2="' + (y + h * 0.4) + '" stroke="' + CAP + '" stroke-opacity=".3"/>' +
       '<text x="' + cx + '" y="' + (y + h * 0.6) + '" text-anchor="middle" font-family="Fraunces Var, Georgia, serif" font-size="' + fs.toFixed(1) + '" fill="' + CAP + '">' + esc(short) + '</text>' +
       '<text x="' + cx + '" y="' + (y + h * 0.84) + '" text-anchor="middle" font-family="JetBrains Var, monospace" font-size="6.5" letter-spacing="1" fill="' + CAP + '" fill-opacity=".6">' + esc(size.toUpperCase()) + '</text>';
@@ -178,6 +178,7 @@
     return '<svg viewBox="0 0 120 240" role="img" aria-label="' + esc(t('packaging', { n: P(p, 'name') })) + '">' + defs + body + '</svg>';
   }
 
+  var LOGO_MARK = '<svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true"><path d="M55 6 C29.7 13.3 34.3 50.7 9 58 C42.3 58.7 37.7 21.3 55 6Z" fill="currentColor"/><path class="logo-front" d="M9 6 C34.3 13.3 29.7 50.7 55 58 C21.7 58.7 26.3 21.3 9 6Z"/></svg>';
   var STAR = '<svg viewBox="0 0 20 20" aria-hidden="true"><path fill="currentColor" d="m10 1.5 2.6 5.5 6 .8-4.4 4.1 1.1 6L10 15l-5.3 2.9 1.1-6L1.4 7.8l6-.8Z"/></svg>';
 
   /* ============================================================
@@ -205,7 +206,7 @@
     var pick = function (id) { return vessel(byId[id]); };
     function drawStage() {
     stage.innerHTML =
-      '<div class="halo"></div><div class="arch"></div>' +
+      '<div class="halo"></div><div class="arch"></div>' + LOGO_MARK.replace('logo-mark', 'arch-mark') +
       '<div class="bottle b3 float slow">' + pick('glass-oil') + '</div>' +
       '<div class="bottle b1 float">' + pick('plush-conditioner') + '</div>' +
       '<div class="bottle b2 float slow">' + pick('cloud-wash') + '</div>' +

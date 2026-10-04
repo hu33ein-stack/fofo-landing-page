@@ -1,5 +1,5 @@
 /* ==========================================================
-   fofo hair — store styles
+   X Hair Care — store styles
    ========================================================== */
 
 @font-face{ font-family:'Fraunces Var'; font-style:normal; font-weight:300 700; font-display:swap; src:url(../assets/fonts/fraunces-var.woff2) format('woff2'); }
@@ -29,7 +29,6 @@
   --font-display:'Fraunces Var', Georgia, 'Times New Roman', serif;
   --font-body:'Hanken Var', -apple-system, 'Segoe UI', sans-serif;
   --font-mono:'JetBrains Var', ui-monospace, Menlo, monospace;
-  --font-logo:'Fraunces Var', Georgia, serif;
   --dir:1;
   --start:left;
 
@@ -122,11 +121,28 @@ em{ font-style:italic; }
 }
 .site-header.scrolled{ border-bottom-color:var(--line); }
 .nav{ display:flex; align-items:center; justify-content:space-between; gap:var(--s2); padding-block:.85rem; }
-.logo{
-  font-family:var(--font-display); font-style:italic; font-size:1.6rem; font-weight:500;
-  text-decoration:none; letter-spacing:-.02em; display:inline-flex; align-items:baseline; gap:.3em;
+.logo{ display:inline-flex; align-items:center; gap:.55rem; text-decoration:none; color:var(--ink); }
+.logo-mark{ height:2.15rem; width:auto; flex:none; overflow:visible; transition:transform .5s var(--ease); }
+.logo-front{ fill:var(--accent); stroke:var(--bg); stroke-width:3; stroke-linejoin:round; paint-order:stroke; }
+.logo:hover .logo-mark{ transform:rotate(-6deg) scale(1.04); }
+.logo-word{ font-family:var(--font-display); font-weight:450; font-size:1.42rem; letter-spacing:-.01em; line-height:1; white-space:nowrap; }
+.logo-lg .logo-mark{ height:3rem; }
+.logo-lg .logo-word{ font-size:1.9rem; }
+html[lang="ar"] .logo-word{ font-weight:700; font-size:1.3rem; }
+html[lang="ar"] .logo-lg .logo-word{ font-size:1.7rem; }
+.logo, .icon-btn, .bag-btn{ flex:none; }
+@media (max-width:480px){
+  .nav{ gap:.5rem; }
+  .nav-actions{ gap:0; }
+  .icon-btn{ width:40px; }
+  .lang-btn{ padding-inline:.5rem; }
+  .lang-btn svg{ display:none; }
+  .bag-btn{ padding-inline:.6rem .4rem; margin-inline-start:.15rem; }
+  .logo{ gap:.45rem; }
+  .logo-mark{ height:1.85rem; }
+  .logo-word{ font-size:1.18rem; }
+  html[lang="ar"] .logo-word{ font-size:1.02rem; }
 }
-.logo span{ font-family:var(--font-mono); font-style:normal; font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); }
 .nav-links{ display:none; gap:2rem; font-size:.92rem; }
 .nav-links a{ text-decoration:none; color:var(--ink-soft); position:relative; transition:color .2s ease; }
 .nav-links a::after{ content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:currentColor; transform:scaleX(0); transform-origin:var(--start, left); transition:transform .3s var(--ease); }
@@ -184,6 +200,8 @@ em{ font-style:italic; }
   content:""; position:absolute; inset:auto 0 0; height:40%;
   background:linear-gradient(to top, color-mix(in srgb, var(--accent) 16%, transparent), transparent);
 }
+.hero-stage .arch-mark{ position:absolute; z-index:1; top:12%; left:50%; width:30%; transform:translateX(-50%); color:var(--ink); opacity:.07; }
+.hero-stage .arch-mark .logo-front{ fill:var(--ink); stroke:none; }
 .hero-stage .bottle{ position:absolute; bottom:10%; filter:drop-shadow(0 28px 30px hsl(var(--shadow)/.28)); }
 .hero-stage .b1{ left:22%; width:30%; z-index:2; }
 .hero-stage .b2{ left:46%; width:26%; z-index:3; }
@@ -523,11 +541,11 @@ dialog::backdrop{ background:hsl(var(--shadow)/.45); backdrop-filter:blur(4px); 
 .sizes{ display:flex; gap:.5rem; flex-wrap:wrap; }
 .sizes label{ position:relative; }
 .sizes input{ position:absolute; opacity:0; }
-.sizes span{
+.sizes input + span{
   display:flex; flex-direction:column; min-width:96px; padding:.6em 1em; border:1px solid var(--line); border-radius:14px; cursor:pointer;
   font-size:.82rem; color:var(--ink-soft); transition:all .2s ease;
 }
-.sizes span b{ color:var(--ink); font-size:.95rem; }
+.sizes input + span b{ color:var(--ink); font-size:.95rem; }
 .sizes input:checked + span{ border-color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink); }
 .sizes input:focus-visible + span{ outline:2px solid var(--accent); outline-offset:2px; }
 .buy-row{ display:flex; gap:.6rem; align-items:stretch; }
@@ -627,7 +645,6 @@ dialog::backdrop{ background:hsl(var(--shadow)/.45); backdrop-filter:blur(4px); 
    ========================================================== */
 .lang-btn{ width:auto; padding-inline:.7rem; gap:.35rem; display:inline-flex; align-items:center; border-radius:100px; font-weight:600; font-size:.85rem; }
 .lang-btn .lang-code{ font-family:var(--font-body); }
-.logo{ font-family:var(--font-logo); }
 html[dir="rtl"]{ --dir:-1; --start:right; }
 html[lang="ar"]{
   --font-display:'Amiri', 'Fraunces Var', Georgia, serif;
@@ -635,7 +652,7 @@ html[lang="ar"]{
   --font-mono:'IBM Plex Sans Arabic', 'JetBrains Var', Tahoma, monospace;
 }
 html[lang="ar"] body{ line-height:1.8; }
-html[lang="ar"] *:not(.logo):not(.logo *){ letter-spacing:0 !important; }
+html[lang="ar"] *{ letter-spacing:0 !important; }
 html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3{ line-height:1.35; font-weight:700; }
 html[lang="ar"] .hero h1{ font-size:clamp(2.6rem, 6.6vw, 5.2rem); line-height:1.45; font-weight:400; margin-block:var(--s3); }
 html[lang="ar"] em, html[lang="ar"] .press-name, html[lang="ar"] .av, html[lang="ar"] .meaning-word{ font-style:normal; }

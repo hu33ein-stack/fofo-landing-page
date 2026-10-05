@@ -121,15 +121,12 @@ em{ font-style:italic; }
 }
 .site-header.scrolled{ border-bottom-color:var(--line); }
 .nav{ display:flex; align-items:center; justify-content:space-between; gap:var(--s2); padding-block:.85rem; }
-.logo{ display:inline-flex; align-items:center; gap:.55rem; text-decoration:none; color:var(--ink); }
-.logo-mark{ height:2.15rem; width:auto; flex:none; overflow:visible; transition:transform .5s var(--ease); }
-.logo-front{ fill:var(--accent); stroke:var(--bg); stroke-width:3; stroke-linejoin:round; paint-order:stroke; }
-.logo:hover .logo-mark{ transform:rotate(-6deg) scale(1.04); }
-.logo-word{ font-family:var(--font-display); font-weight:450; font-size:1.42rem; letter-spacing:-.01em; line-height:1; white-space:nowrap; }
-.logo-lg .logo-mark{ height:3rem; }
-.logo-lg .logo-word{ font-size:1.9rem; }
-html[lang="ar"] .logo-word{ font-weight:700; font-size:1.3rem; }
-html[lang="ar"] .logo-lg .logo-word{ font-size:1.7rem; }
+.logo{ display:inline-flex; align-items:center; text-decoration:none; color:var(--ink); direction:ltr; }
+.logo-svg{ height:2.6rem; width:auto; display:block; overflow:visible; margin-top:.35rem; }
+.logo-x{ fill:var(--accent); }
+.logo-svg path:last-child{ transform-origin:15% 100%; transition:transform .6s var(--ease); }
+.logo:hover .logo-svg path:last-child{ transform:scaleX(1.04); }
+.logo-lg .logo-svg{ height:3.6rem; }
 .logo, .icon-btn, .bag-btn{ flex:none; }
 @media (max-width:480px){
   .nav{ gap:.5rem; }
@@ -138,10 +135,7 @@ html[lang="ar"] .logo-lg .logo-word{ font-size:1.7rem; }
   .lang-btn{ padding-inline:.5rem; }
   .lang-btn svg{ display:none; }
   .bag-btn{ padding-inline:.6rem .4rem; margin-inline-start:.15rem; }
-  .logo{ gap:.45rem; }
-  .logo-mark{ height:1.85rem; }
-  .logo-word{ font-size:1.18rem; }
-  html[lang="ar"] .logo-word{ font-size:1.02rem; }
+  .logo-svg{ height:2.25rem; }
 }
 .nav-links{ display:none; gap:2rem; font-size:.92rem; }
 .nav-links a{ text-decoration:none; color:var(--ink-soft); position:relative; transition:color .2s ease; }
@@ -200,8 +194,8 @@ html[lang="ar"] .logo-lg .logo-word{ font-size:1.7rem; }
   content:""; position:absolute; inset:auto 0 0; height:40%;
   background:linear-gradient(to top, color-mix(in srgb, var(--accent) 16%, transparent), transparent);
 }
-.hero-stage .arch-mark{ position:absolute; z-index:1; top:12%; left:50%; width:30%; transform:translateX(-50%); color:var(--ink); opacity:.07; }
-.hero-stage .arch-mark .logo-front{ fill:var(--ink); stroke:none; }
+.hero-stage .arch-mark{ position:absolute; z-index:1; top:15%; left:50%; width:22%; transform:translateX(-50%); opacity:.08; }
+.hero-stage .arch-mark path{ fill:var(--ink); }
 .hero-stage .bottle{ position:absolute; bottom:10%; filter:drop-shadow(0 28px 30px hsl(var(--shadow)/.28)); }
 .hero-stage .b1{ left:22%; width:30%; z-index:2; }
 .hero-stage .b2{ left:46%; width:26%; z-index:3; }
